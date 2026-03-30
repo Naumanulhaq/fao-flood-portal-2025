@@ -8,28 +8,58 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initCharts() {
-    // 1. Province Chart (Peak Flood Extent)
+    // 1. Province Chart (Total vs Agricultural Flooding) - STACKED
     const ctxProvince = document.getElementById('provinceChart').getContext('2d');
     new Chart(ctxProvince, {
         type: 'bar',
         data: {
             labels: ['Punjab', 'Sindh', 'KP'],
-            datasets: [{
-                label: 'Flooded Area (km²)',
-                data: [FLOOD_DATA.provinces.punjab.floodExtent, FLOOD_DATA.provinces.sindh.floodExtent, FLOOD_DATA.provinces.kp.floodExtent],
-                backgroundColor: ['#0077b6', '#0096c7', '#00b4d8'],
-                borderWidth: 0,
-                borderRadius: 4
-            }]
+            datasets: [
+                {
+                    label: 'Agricultural Flooded Area (km²)',
+                    data: [
+                        FLOOD_DATA.provinces.punjab.agriFloodedArea,
+                        FLOOD_DATA.provinces.sindh.agriFloodedArea,
+                        FLOOD_DATA.provinces.kp.agriFloodedArea
+                    ],
+                    backgroundColor: '#10b981', // Green for agriculture
+                    borderRadius: 4
+                },
+                {
+                    label: 'Other Flooded Area (km²)',
+                    data: [
+                        FLOOD_DATA.provinces.punjab.floodExtent - FLOOD_DATA.provinces.punjab.agriFloodedArea,
+                        FLOOD_DATA.provinces.sindh.floodExtent - FLOOD_DATA.provinces.sindh.agriFloodedArea,
+                        FLOOD_DATA.provinces.kp.floodExtent - FLOOD_DATA.provinces.kp.agriFloodedArea
+                    ],
+                    backgroundColor: '#5367a7ff', // Brighter light blue for visibility
+                    borderRadius: 4
+                }
+            ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8' } },
-                x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                y: {
+                    stacked: true,
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#94a3b8' }
+                },
+                x: {
+                    stacked: true,
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8' }
+                }
             },
-            plugins: { legend: { display: false } }
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: { color: '#94a3b8', padding: 20 }
+                }
+            }
         }
     });
 
@@ -93,11 +123,11 @@ function switchProvince(province) {
     currentProvince = province;
     const buttons = document.querySelectorAll('.tab-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
-    
+
     // Find the clicked button from the event or directly
     const targetBtn = Array.from(buttons).find(btn => btn.textContent.toLowerCase() === province.toLowerCase());
     if (targetBtn) targetBtn.classList.add('active');
-    
+
     updateDistrictList();
 }
 
@@ -105,10 +135,10 @@ function updateDistrictList() {
     const listElement = document.getElementById('district-list');
     const metricSelect = document.getElementById('metric-filter');
     currentMetric = metricSelect.value;
-    
+
     const districts = FLOOD_DATA.provinces[currentProvince].topDistricts[currentMetric];
     let html = '';
-    
+
     districts.forEach(dist => {
         const unit = currentMetric === 'pop' ? '' : ' km²';
         html += `
@@ -121,7 +151,7 @@ function updateDistrictList() {
             </div>
         `;
     });
-    
+
     listElement.innerHTML = html;
 }
 

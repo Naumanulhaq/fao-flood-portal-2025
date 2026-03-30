@@ -15,9 +15,11 @@
 <body>
     <div class="dashboard-container">
         <header class="header animate-in">
-            <div class="brand">
-                <div class="badge">National Overview</div>
-                <h1>Flood 2025 Impact Portal</h1>
+            <div class="brand" style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;">
+                <div class="badge"
+                    style="background: var(--primary); color: white; border: none; letter-spacing: 0.08em; font-size: 0.75rem; font-weight: 800; padding: 6px 12px; border-radius: 4px;">
+                    GEOSPATIAL ANALYSIS DRIVEN</div>
+                <h1 style="margin: 0; line-height: 1.1;">Flood 2025 Impact Portal</h1>
             </div>
             <div class="meta-info" style="text-align: right;">
                 <p style="color: var(--text-main); font-weight: 600;">UNFAO Pakistan</p>
@@ -60,9 +62,7 @@
             <!-- Provincial Comparison -->
             <section class="card">
                 <div style="margin-bottom: 20px;">
-                    <h3>Provinces: Peak Flood Extent</h3>
-                    <p style="color: var(--text-dim); font-size: 0.85rem;">Comparative analysis of flooded vs total land
-                        area (km²)</p>
+                    <h3>Provincial Analysis: Total vs. Agricultural Flooding</h3>
                 </div>
                 <div style="height: 300px;">
                     <canvas id="provinceChart"></canvas>
