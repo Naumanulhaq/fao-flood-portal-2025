@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flood 2025 Dashboard | UNFAO Pakistan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="header animate-in">
+            <div class="brand">
+                <div class="badge">National Overview</div>
+                <h1>Flood 2025 Impact Portal</h1>
+            </div>
+            <div class="meta-info" style="text-align: right;">
+                <p style="color: var(--text-main); font-weight: 600;">UNFAO Pakistan</p>
+                <p style="color: var(--text-dim); font-size: 0.85rem;">Data coverage: KP, Punjab, Sindh</p>
+            </div>
+        </header>
+
+        <!-- Primary KPIs -->
+        <section class="grid-kpi animate-in delay-1">
+            <div class="card">
+                <h3 class="card-title">Total Flooded Area</h3>
+                <div class="card-value"><span id="kpi-total-area">17,304</span> <small style="font-size: 1rem; color: var(--text-dim);">km²</small></div>
+                <div class="card-trend trend-down">
+                    Peak Extent Analysis
+                </div>
+            </div>
+            <div class="card critical">
+                <h3 class="card-title">Agricultural Impact</h3>
+                <div class="card-value"><span id="kpi-agri-area">14,498</span> <small style="font-size: 1rem; color: var(--text-dim);">km²</small></div>
+                <div class="card-trend text-dim">7.3% of total agri area</div>
+            </div>
+            <div class="card accent">
+                <h3 class="card-title">Population Exposed</h3>
+                <div class="card-value"><span id="kpi-pop">11.35M</span></div>
+                <div class="card-trend trend-up">
+                    ~6M in rural areas
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Recovery Progress</h3>
+                <div class="card-value"><span id="kpi-recovery">33</span>%</div>
+                <div class="card-trend trend-up">Reduction by Oct 15</div>
+            </div>
+        </section>
+
+        <!-- Main Visualizations -->
+        <main class="content-grid animate-in delay-2">
+            <!-- Provincial Comparison -->
+            <section class="card">
+                <div style="margin-bottom: 20px;">
+                    <h3>Provinces: Peak Flood Extent</h3>
+                    <p style="color: var(--text-dim); font-size: 0.85rem;">Comparative analysis of flooded vs total land area (km²)</p>
+                </div>
+                <div style="height: 300px;">
+                    <canvas id="provinceChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Crop Impact -->
+            <section class="card">
+                <div style="margin-bottom: 20px;">
+                    <h3>Impact by Crop Type</h3>
+                    <p style="color: var(--text-dim); font-size: 0.85rem;">Combined flooding across KP, Punjab & Sindh (km²)</p>
+                </div>
+                <div style="height: 300px;">
+                    <canvas id="cropChart"></canvas>
+                </div>
+            </section>
+        </main>
+
+        <!-- Recovery & Details -->
+        <div class="content-grid animate-in delay-2">
+            <!-- October Recovery -->
+            <section class="card">
+                <h3>October 2025 Recovery (1–15 Oct)</h3>
+                <div class="recovery-stats">
+                    <div class="recovery-card">
+                        <div class="recovery-val">-33%</div>
+                        <div class="recovery-label">National Extent</div>
+                    </div>
+                    <div class="recovery-card">
+                        <div class="recovery-val">-15%</div>
+                        <div class="recovery-label">KP Reduction</div>
+                    </div>
+                    <div class="recovery-card">
+                        <div class="recovery-val">-32%</div>
+                        <div class="recovery-label">Punjab Reduction</div>
+                    </div>
+                    <div class="recovery-card">
+                        <div class="recovery-val">-37%</div>
+                        <div class="recovery-label">Sindh Reduction</div>
+                    </div>
+                </div>
+                <div style="margin-top: 30px; height: 200px;">
+                    <canvas id="recoveryChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Top Districts -->
+            <section class="card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
+                    <div>
+                        <h3>District Rankings</h3>
+                        <div class="tabs" style="margin-top: 10px;">
+                            <button class="tab-btn active" onclick="switchProvince('kp')">KP</button>
+                            <button class="tab-btn" onclick="switchProvince('punjab')">Punjab</button>
+                            <button class="tab-btn" onclick="switchProvince('sindh')">Sindh</button>
+                        </div>
+                    </div>
+                    <select id="metric-filter" class="tab-btn" style="background: var(--surface); border: 1px solid var(--border);" onchange="updateDistrictList()">
+                        <option value="extent">Flood Extent</option>
+                        <option value="agri">Agri Area</option>
+                        <option value="pop">Population</option>
+                    </select>
+                </div>
+                <div id="district-list" class="district-list">
+                    <!-- JavaScript will populate this -->
+                </div>
+            </section>
+        </div>
+
+        <footer class="animate-in delay-3" style="text-align: center; margin-top: 60px; padding: 40px 0; border-top: 1px solid var(--border);">
+            <p style="color: var(--text-dim);">&copy; 2026 Food and Agriculture Organization of the United Nations (FAO) Pakistan Office.</p>
+            <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 10px;">Source: UNFAO Statistics (Flood 2025 Project)</p>
+        </footer>
+    </div>
+
+    <!-- Data & Application Logic -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
