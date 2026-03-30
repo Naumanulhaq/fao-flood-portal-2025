@@ -4,7 +4,7 @@
 This portal provides an interactive visualization of the rapid geospatial assessment conducted by the FAO Geospatial Unit and the Pakistan Country Office. It quantifies the impacts of the 2025 monsoon floods on agricultural land, major crop types, and population exposure across Khyber Pakhtunkhwa (KP), Punjab, and Sindh.
 
 ## 📌 Assessment Overview
-During August and September 2025, intense monsoon rainfall triggered widespread inundation across major agricultural regions. This project serves as a decision-support tool for emergency response and early recovery planning by delivering spatially explicit information at both provincial and district levels.
+During August and September 2025, intense monsoon rainfall triggered widespread inundation across major agricultural regions. This project serves as a decision-support tool for emergency response and recovery planning by delivering spatially explicit information at both provincial and district levels.
 
 ### Data & Technical Specifications:
 - **Agricultural Baseline**: Cultivated land was identified using the **FAO 2021 Landcover** dataset to ensure accurate impact assessments.
@@ -25,4 +25,5 @@ During August and September 2025, intense monsoon rainfall triggered widespread 
 > Baldassarre, G., UlHaq, N., Shafiq, S., Vata, F., Ghosh, A., Mushtaq, F., Dadhich, G., Peiser, L., Bajwa, A. and Henry, M. 2026. *Geospatial flood impact assessment in Pakistan, 2025*. Islamabad, FAO.
 
 ---
-© 2026 Food and Agriculture Organization of the United Nations (FAO). Built for official monitoring and assessment purposes.
+**Independent Technical Visualization** | Based on the FAO Geospatial flood impact assessment in Pakistan, 2025.  
+*Disclaimer: This portal is a technical visualization of public assessment data.*
